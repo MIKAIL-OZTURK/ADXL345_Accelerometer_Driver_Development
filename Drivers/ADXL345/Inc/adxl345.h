@@ -1,10 +1,3 @@
-/*
- * adxl345.h
- *
- *  Created on: Feb 22, 2024
- *      Author: Arif Mandal
- */
-
 #ifndef INC_ADXL345_H_
 #define INC_ADXL345_H_
 
@@ -16,10 +9,10 @@
 /* @def_group register */
 #define DEVID       	0x00
 #define THRESH_TAP      0x1D
-#define OFSX       		0x1E
-#define OFSY       		0x1F
-#define OFSZ       		0x20
-#define DUR       		0x21
+#define OFSX       	0x1E
+#define OFSY       	0x1F
+#define OFSZ      	0x20
+#define DUR       	0x21
 #define LATENT       	0x22
 #define WINDOW       	0x23
 #define THRESH_ACT      0x24
@@ -56,7 +49,7 @@
 #define SCALE_FACTOR_2G    (float)1/256.0
 #define SCALE_FACTOR_4G    (float)1/128.0
 #define SCALE_FACTOR_8G    (float)1/64.0
-#define SCALE_FACTOR_16G    (float)1/32.0
+#define SCALE_FACTOR_16G   (float)1/32.0
 
 /* @def_group wakeup_rate*/
 #define WAKEUP_8HZ      0x00
@@ -106,47 +99,41 @@ typedef enum{
 
 typedef struct{
 
-	uint8_t Wakeup: 2; /* Bits 0-1 (@WAKEUP_FREQUENCY )  0x00-> 8Hz, 0x01-> 4Hz, 0x02-> 2Hz, 0x03-> 1Hz */
-	uint8_t Sleep: 1; // Bits 2 (sleep)
-	uint8_t Measure: 1;// Bits 3 (default 0x01)
-	uint8_t AUTO_SLEEP: 1;// Bits 4
-	uint8_t Link: 1;// Bits 5
-	uint8_t Reserved: 2;// Bits 6-7 (reserved)
+	uint8_t Wakeup: 2; 	/* Bits 0-1 (@WAKEUP_FREQUENCY )  0x00-> 8Hz, 0x01-> 4Hz, 0x02-> 2Hz, 0x03-> 1Hz */
+	uint8_t Sleep: 1; 	// Bits 2 (sleep)
+	uint8_t Measure: 1;	// Bits 3 (default 0x01)
+	uint8_t AUTO_SLEEP: 1;	// Bits 4
+	uint8_t Link: 1;	// Bits 5
+	uint8_t Reserved: 2;	// Bits 6-7 (reserved)
 
 }PowerControlRegister_t;
 
 typedef struct{
 
-	uint8_t Range: 2; /* Bits 0-1 (range )  0x00-> +-2g, 0x01-> +-4g, 0x02-> +-8g, 0x03-> +-16g */
-	uint8_t Justify: 1; // Bits 2
-	uint8_t FULL_RES: 1;// Bits 3
-	uint8_t Reserved: 1;// Bits 4(reserved)
-	uint8_t INT_INVERT: 1;// Bits 5
-	uint8_t SPI: 1;// Bits 6
-	uint8_t SELF_TEST: 1;// Bits 7
+	uint8_t Range: 2; 	/* Bits 0-1 (range )  0x00-> +-2g, 0x01-> +-4g, 0x02-> +-8g, 0x03-> +-16g */
+	uint8_t Justify: 1; 	// Bits 2
+	uint8_t FULL_RES: 1;	// Bits 3
+	uint8_t Reserved: 1;	// Bits 4(reserved)
+	uint8_t INT_INVERT: 1;	// Bits 5
+	uint8_t SPI: 1;		// Bits 6
+	uint8_t SELF_TEST: 1;	// Bits 7
 
 }DataFormatRegister_t;
 
 
 typedef struct{
 
-	uint8_t Range: 4; /* Bits 0-3 (range )  0x00-> +-2g, 0x01-> +-4g, 0x02-> +-8g, 0x03-> +-16g */
-	uint8_t LOW_POWER: 1; // Bits 4
-	uint8_t Reserved: 3;// Bits 5-7
+	uint8_t Range: 4; 	/* Bits 0-3 (range )  0x00-> +-2g, 0x01-> +-4g, 0x02-> +-8g, 0x03-> +-16g */
+	uint8_t LOW_POWER: 1; 	// Bits 4
+	uint8_t Reserved: 3;	// Bits 5-7
 
 }BWRATERegister_t;
 
 int ADXL345_ScanDeviceID(I2C_HandleTypeDef *hi2cx);
-
 ADXL345InitStatus ADXL345_Init(I2C_HandleTypeDef *hi2cx);
-
 //ADXL345ReadStatus ADXL345_ReadRegisterData(I2C_HandleTypeDef *hi2cx, uint16_t registerAddress, uint16_t sizeofData, uint8_t *dataBuffer);
-
 //ADXL345WriteStatus ADXL345_WriteRegisterData(I2C_HandleTypeDef *hi2cx, uint16_t registerAddress, uint16_t value);
-
 int16_t ADXL345_getAxisValue(I2C_HandleTypeDef *hi2cx, uint8_t axis);
-
 float ADXL345_getGValue(I2C_HandleTypeDef *hi2cx, uint8_t axis, float scaleFactor);
-
 
 #endif /* INC_ADXL345_H_ */
